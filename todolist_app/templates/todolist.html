@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}
+    Todolist
+{% endblock title %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages  %}
+    <div class="alert alert-info" role="alert" >
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    </div>
+    {% endfor %}
+{% endif %}
+<div class="container">
+    <h1>
+        {{ welcome }}
+    </h1>
+    
+    <form method="POST" class="row" >
+        {% csrf_token %}
+        <label class="col-4"></label>
+        <input class="form-control col-6" type="text" name="task" placeholder="New Task?">
+        <button type="submit" class="btn btn-primary col-2">Add Task</button>
+    </form>
+    <br/>
+    <table class="table table-dark table-bordered text-center">
+        <thead>
+          <tr >
+            <th class="col-1">ID</th>
+            <th class="col-6">Task</th>
+            <th class="col-3" >Done</th>
+            <th class="col-1" >Edit</th>
+            <th class="col-1" >Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+    {% if all_tasks %}
+        {% for task in all_tasks %}
+        {% if task.done %}
+          <tr class="table-success">
+            <td class="col-1">{{task.id}}</td>
+            <td  class="table-active col-6"><del>{{task.task}}</del></td>
+            <td  class="table-active col-3"><a href="{% url "ppending_task" task.id %}"><button type="button" class="btn btn-secondary">Make as Pending</button><a></td>
+            <td class='col-1'><a href="{% url "edit_task" task.id %}"><button type="button" class="btn btn-warning">Edit</button></a></td>
+            <td class='col-1'><a href="{% url "delete_task" task.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+          </tr>
+          {% else %}
+          <tr >
+            <th scope="row">{{task.id}}</th>
+            <td  class="table-active">{{task.task}}</td>
+            <td  class="table-active"><a href="{% url "complete_task" task.id %}"><button type="button" class="btn btn-secondary">Make as Completed</button><a></td>
+            <td><a href="{% url "edit_task" task.id %}"><button type="button" class="btn btn-warning">Edit</button></a></td>
+            <td><a href="{% url "delete_task" task.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+          </tr>
+        {% endif %}
+
+        {% endfor %}
+    {% endif %}
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation examples">
+        <ul class="pagination justify-content-end">
+          
+          <li class="page-item"><a class="page-link" href="?pg=1" ><<</a></li>
+          {% if all_tasks.has_previous %}
+          <li class="page-item"><a class="page-link" href="?pg={{all_tasks.previous_page_number}}" >{{all_tasks.previous_page_number}}</a></li>
+          {% endif %}
+          
+          <li class="page-item"><a class="page-link" href="?pg={{all_tasks.number}}" >{{all_tasks.number}}</a></li>
+          {% if all_tasks.has_next %}
+          <li class="page-item"><a class="page-link" href="?pg={{all_tasks.next_page_number}}" >{{all_tasks.next_page_number}}</a></li>
+          {% endif %}
+          
+          <li class="page-item">
+            <a class="page-link" href="?pg={{all_tasks.paginator.num_pages}}" >>></a>
+          </li>
+        </ul>
+      </nav>
+
+</div>
+{% endblock content %}

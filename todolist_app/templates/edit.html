@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}
+    Edit Page
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h1>
+        {{ task_obj.task }}
+    </h1>
+    {% if task_obj.owner == request.user %}
+    <form method="POST"  >
+        {% csrf_token %}
+        {% comment %} <label class="col-lg-4"></label> {% endcomment %}
+        <input class=" col-lg-6" type="text" name="task" placeholder="{{ task_obj.task }}" value="{{task_obj.task}}">
+        <input type="checkbox" name="done" id="id_done"   placeholder="{{task_obj.done}}">
+        <label>Done</label>
+    </br>
+        <button type="submit" class="btn btn-primary col-lg-2">Update Task</button>
+    </form>
+    {% else %}
+    <p>Access Restrected, You are not allowed to modified this </p>
+    {% endif %}
+</div>
+{% endblock content %}
+
+        

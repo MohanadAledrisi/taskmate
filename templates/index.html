@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+Welcome to taskmate
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    {% comment %} <div class='row mt-5' >
+        <div class='col-lg4'>
+            <img height='200px' width='200px' src="{% static "images/1.jpg" %}" alt='' >
+        </div>
+        <div class='col-lg4'>
+            <img height='200px' width='200px' src="{% static "images/2.jpg" %}" alt='' >
+        </div>
+        <div class='col-lg4'>
+            <img height='200px' width='200px' src="{% static "images/3.jpg" %}" alt='' >
+        </div>
+    </div> {% endcomment %}
+    <div class="row mt-5" >
+        <center><p class="h1 text-primary">Hello and welcome Mohanad Aledrisi</p></center>
+        <center><p class="h2">Hello and welcome MOhanad Aledrisi</p></center>
+        <center><p class="h5">Hello and welcome MOhanad Aledrisi</p></center>
+        <center><a href="{% url "todolist" %}" ><button class="btn btn-primary btn-lg mt-3 mb-3">Let's Get Start</button></a></center>
+    </div>
+</div>
+{% endblock content %}

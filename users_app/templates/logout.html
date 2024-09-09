@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+logout Page
+{% endblock title %}
+{% block content %}
+</br>
+{% if messages %}
+    {% for message in messages  %}
+    <div class="alert alert-info" role="alert" >
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<div class="container">
+    <h4>logout Successfully  ; Thank you for using us! </h4>
+    <a href="{% url "login" %}" ><button class="btn btn-primary mb-5" >Login Again</button></a>
+</div>
+{% endblock content %}
