@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn taskmate.wsgi
+web: gunicorn taskmate.wsgi --log-file -
